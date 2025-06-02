@@ -54,20 +54,27 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-muted/30 border-t border-border">
+    <footer className="bg-primary border-t border-border">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {/* About Us Section */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
-                <span className="text-lg font-bold text-primary-foreground">
-                  KT
-                </span>
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary overflow-hidden">
+                <Image
+                  src="/icon/logo-nobg.png"
+                  alt="Kampung Tugu Logo"
+                  width={1000}
+                  height={1000}
+                  className="h-20 w-20 object-contain"
+                />
+                {/* kt */}
               </div>
-              <h3 className="text-lg font-bold text-foreground">About Us</h3>
+              <h3 className="text-lg font-bold text-primary-foreground">
+                About Us
+              </h3>
             </div>
-            <p className="text-muted-foreground leading-normal text-sm sm:text-base line-clamp-4">
+            <p className="text-primary-foreground leading-normal text-sm sm:text-base line-clamp-4">
               Kampung Tugu adalah sebuah kampung bersejarah yang terletak di
               Semper Barat, Cilincing, Jakarta Utara. Kampung ini dikenal
               sebagai tempat tinggal masyarakat keturunan Portugis yang disebut
@@ -78,12 +85,12 @@ export default function Footer() {
 
           {/* Visit Us Section */}
           <div>
-            <h3 className="text-lg font-bold text-foreground mb-3 flex items-center">
-              <MapPin className="h-5 w-5 mr-2 text-primary" />
+            <h3 className="text-lg font-bold text-primary-foreground mt-3 mb-3.5 flex items-center">
+              <MapPin className="h-5 w-5 mr-2 text-primary-foreground" />
               Visit Us
             </h3>
             <div className="space-y-2">
-              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">
+              <p className="text-primary-foreground text-sm sm:text-base leading-relaxed">
                 Jalan Raya Tugu No 20,
                 <br />
                 Kel. Semper Barat,
@@ -95,7 +102,7 @@ export default function Footer() {
               <Button
                 variant="outline"
                 size="sm"
-                className="mt-3 text-primary border-primary hover:bg-primary hover:text-primary-foreground"
+                className="mt-3 text-primary border-primary hover:bg-primary-foreground/90 hover:text-primary"
                 asChild
               >
                 <Link
@@ -110,7 +117,7 @@ export default function Footer() {
 
           {/* Connect With Us Section */}
           <div>
-            <h3 className="text-lg font-bold text-foreground mb-3">
+            <h3 className="text-lg font-bold text-primary-foreground mt-3 mb-3.5">
               Connect With Us
             </h3>
             <div className="space-y-2">
@@ -122,10 +129,12 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center space-x-3 text-muted-foreground hover:text-primary transition-colors duration-200 group"
                 >
-                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-muted group-hover:text-primary transition-colors duration-200">
                     {social.icon}
                   </div>
-                  <span className="text-sm font-medium">{social.name}</span>
+                  <span className="text-sm font-medium text-white group-hover:text-white/80">
+                    {social.name}
+                  </span>
                 </Link>
               ))}
             </div>
@@ -133,11 +142,11 @@ export default function Footer() {
         </div>
 
         {/* Supported By Section */}
-        <div className="mt-8 pt-6 border-t border-border flex items-center justify-evenly">
-          <h3 className="text-lg font-bold text-foreground text-center">
+        <div className="mt-8 pt-6 border-t border-border block md:flex items-center justify-evenly">
+          <h3 className="text-lg font-bold text-primary-foreground text-center">
             Supported By
           </h3>
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
+          <div className="flex overflow-x-auto justify-center items-center gap-4 sm:gap-6">
             {supportedBy.map((supporter, index) => (
               <div
                 key={index}
@@ -158,20 +167,20 @@ export default function Footer() {
         {/* Copyright Section */}
         <div className="mt-6 pt-4 border-t border-border">
           <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-            <p className="text-sm text-muted-foreground text-center sm:text-left">
+            <p className="text-sm text-primary-foreground text-center sm:text-left">
               © 2024 Kampung Tugu. All rights reserved.
             </p>
             <div className="flex items-center space-x-4">
               <Link
                 href="/privacy"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                className="text-sm text-primary-foreground hover:text-primary-foreground/80 transition-colors duration-200"
               >
                 Privacy Policy
               </Link>
-              <span className="text-muted-foreground">•</span>
+              <span className="text-primary-foreground">•</span>
               <Link
                 href="/terms"
-                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+                className="text-sm text-primary-foreground hover:text-primary-foreground/80 transition-colors duration-200"
               >
                 Terms of Service
               </Link>

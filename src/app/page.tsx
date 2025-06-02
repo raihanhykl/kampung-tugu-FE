@@ -1,24 +1,38 @@
+"use client";
 import Footer from "@/components/footer/footer";
 import Navbar from "@/components/navbar/navbar";
 import HeroSection from "@/components/sections/hero";
+import HistorySection from "@/components/sections/history";
+import NewsSection from "@/components/sections/news";
+import ShopSection from "@/components/sections/shop";
+import StorybookSection from "@/components/sections/story-book2";
+import VideoProfileSection from "@/components/sections/video-profile";
 
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <HeroSection />
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 h-[2000px]">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Selamat Datang di Kampung Tugu
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Desa yang kaya akan sejarah, budaya, dan tradisi. Jelajahi keindahan
-            dan kearifan lokal yang telah terjaga selama berabad-abad.
-          </p>
-        </div>
-      </main>
-      <Footer />
+      <div id="home">
+        <HeroSection />
+      </div>
+      <div id="history" className="scroll-mt-16 md:scroll-mt-[73px]">
+        <HistorySection />
+      </div>
+      <div id="videoProfile">
+        <VideoProfileSection />
+      </div>
+      <div id="ebook">
+        <StorybookSection />
+      </div>
+      <div id="news">
+        <NewsSection />
+      </div>
+      <div id="shop">
+        <ShopSection />
+      </div>
+      <div id="contact">
+        <Footer />
+      </div>
     </div>
   );
 }

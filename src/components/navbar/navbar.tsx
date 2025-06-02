@@ -8,20 +8,21 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Image from "next/image";
 
 const navigationItems = [
-  { name: "HOME", href: "/" },
-  { name: "HISTORY", href: "/history" },
-  { name: "VIDEO PROFILE", href: "/video-profile" },
-  { name: "STORYBOOK", href: "/storybook" },
-  { name: "ANIMATION", href: "/animation" },
-  { name: "SHOP", href: "/shop" },
-  { name: "CONTACT", href: "/contact" },
+  { name: "HOME", href: "#home" },
+  { name: "HISTORY", href: "#history" },
+  { name: "VIDEO PROFILE", href: "#video-profile" },
+  { name: "STORYBOOK", href: "#storybook" },
+  { name: "ANIMATION", href: "#animation" },
+  { name: "SHOP", href: "#shop" },
+  { name: "CONTACT", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="fixed top-0 z-50 w-full py-1 border-b border-border/40 bg-[var(--primary)] backdrop-blur supports-[backdrop-filter]:bg-primary shadow-lg">
+      {/* <nav className="fixed top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"> */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo and Title */}
@@ -39,12 +40,12 @@ export default function Navbar() {
               />
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-xl font-bold text-foreground">
+              <h1 className="text-xl font-bold text-primary-foreground">
                 Kampung Tugu
               </h1>
             </div>
             <div className="block sm:hidden">
-              <h1 className="text-lg font-bold text-foreground">
+              <h1 className="text-lg font-bold text-primary-foreground">
                 Kampung Tugu
               </h1>
             </div>
@@ -54,13 +55,22 @@ export default function Navbar() {
           <div className="hidden lg:block">
             <div className="flex items-center space-x-1">
               {navigationItems.map((item) => (
-                <Link key={item.name} href={item.href}>
-                  <Button
+                // <Link key={item.name} href={item.href}>
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  // className="flex-col flex relative text-sm font-medium text-primary-foreground transition-colors duration-200 px-3 py-2 rounded-md"
+                  className="group relative flex flex-col text-sm font-bold text-primary-foreground transition-colors duration-200 px-3 py-2 rounded-md"
+                >
+                  {/* <Button
                     variant="ghost"
-                    className="text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
+                    className="text-sm font-medium text-primary-foreground hover:bg-accent hover:text-accent-foreground transition-colors duration-200"
                   >
                     {item.name}
-                  </Button>
+                  </Button> */}
+
+                  {item.name}
+                  <span className="absolute left-0 -bottom-0.5 h-1 w-0 bg-primary-foreground transition-all duration-300 group-hover:w-full"></span>
                 </Link>
               ))}
             </div>
@@ -73,9 +83,9 @@ export default function Navbar() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-foreground hover:bg-accent hover:text-accent-foreground"
+                  className="text-primary-foreground hover:scale-110 hover:bg-primary hover:text-primary-foreground"
                 >
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-8 w-8" />
                   <span className="sr-only">Open navigation menu</span>
                 </Button>
               </SheetTrigger>

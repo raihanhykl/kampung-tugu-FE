@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Eye } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function HeroSection() {
   const [visitorCount, setVisitorCount] = useState(0);
@@ -47,7 +48,7 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative h-screen w-full overflow-hidden" id="hero">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -58,7 +59,7 @@ export default function HeroSection() {
           height={1080}
         />
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
       {/* Main Content - Centered */}
@@ -66,27 +67,31 @@ export default function HeroSection() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             {/* Main Title */}
-            <h1 className="mb-4 text-4xl font-bold text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+            <h1 className="mb-4 text-4xl font-bold text-white sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl">
+              {/* <span className="block text-accent text-shadow-xs text-shadow-white"> */}
               <span className="block">SELAMAT DATANG</span>
-              <span className="block text-accent mt-2 sm:mt-4">
-                WEBSITE RESMI KAMPUNG TUGU
+              <span className="block text-accent-foreground mt-2 sm:mt-4">
+                DI WEBSITE RESMI KAMPUNG TUGU
               </span>
             </h1>
 
             {/* Subtitle/Description */}
             <div className="mx-auto max-w-4xl">
-              <p className="text-lg text-white/90 sm:text-xl md:text-2xl lg:text-3xl leading-relaxed font-medium">
+              <p className="text-lg text-white/90 sm:text-lg md:text-xl lg:text-xl leading-relaxed font-medium">
                 Temukan kisah, budaya, dan warisan sejarah yang hidup di tengah
                 Jakarta melalui tradisi dan kehidupan masyarakat Tugu
               </p>
             </div>
 
             {/* Call to Action Buttons */}
-            <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 rounded-lg font-semibold text-lg transition-colors duration-200 w-full sm:w-auto">
+            <div className="mt-8 sm:mt-12 flex sm:flex-row gap-4 justify-center items-center">
+              <Link
+                href={"#history"}
+                className="bg-accent hover:bg-accent/90 text-primary-foreground px-4 md:px-8 py-2 md:py-3 rounded-lg font-semibold text-lg transition-colors duration-200 w-full sm:w-auto"
+              >
                 Jelajahi Sejarah
-              </button>
-              <button className="border-2 border-white text-white hover:bg-white hover:text-foreground px-8 py-3 rounded-lg font-semibold text-lg transition-colors duration-200 w-full sm:w-auto">
+              </Link>
+              <button className=" border-accent text-accent bg-white border-2 hover:bg-white/90 px-4 md:px-8 py-2 md:py-3 rounded-lg font-semibold text-lg transition-colors duration-200 w-full sm:w-auto">
                 Tonton Video
               </button>
             </div>
@@ -96,16 +101,16 @@ export default function HeroSection() {
 
       {/* Visitor Counter - Bottom Left */}
       <div className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 lg:bottom-8 lg:left-8 z-20">
-        <div className="bg-background/90 backdrop-blur-sm border border-border rounded-lg px-4 py-3 sm:px-6 sm:py-4">
+        <div className="bg-accent/90 backdrop-blur-sm border border-accent rounded-lg px-4 py-3 sm:px-6 sm:py-4">
           <div className="flex items-center space-x-3">
             <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-primary">
               <Eye className="h-4 w-4 sm:h-5 sm:w-5 text-primary-foreground" />
             </div>
             <div>
-              <p className="text-xs sm:text-sm text-muted-foreground font-medium">
+              <p className="text-xs sm:text-sm text-primary-foreground font-medium">
                 Pengunjung Hari Ini
               </p>
-              <p className="text-lg sm:text-xl font-bold text-foreground">
+              <p className="text-lg sm:text-xl font-bold text-primary-foreground">
                 {visitorCount.toLocaleString("id-ID")}
               </p>
             </div>
