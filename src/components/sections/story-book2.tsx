@@ -21,8 +21,8 @@ const StorybookSection = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
       <HTMLFlipBook
         style={{}}
-        width={960} // 16:9 ratio with height = 540
-        height={540}
+        width={200}
+        height={400}
         size="stretch"
         minWidth={315}
         maxWidth={2000}
@@ -42,7 +42,7 @@ const StorybookSection = () => {
         useMouseEvents={true}
         swipeDistance={30}
         showPageCorners={true}
-        disableFlipByClick={false}
+        disableFlipByClick={true}
       >
         {gradients.map((gradient, index) => (
           <div

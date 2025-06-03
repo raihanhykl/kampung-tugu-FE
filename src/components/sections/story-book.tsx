@@ -11,7 +11,6 @@ import HTMLFlipBook from "react-pageflip";
 import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Page component for the flipbook
 const Page = React.forwardRef<
   HTMLDivElement,
   { children: ReactNode; number: number }
