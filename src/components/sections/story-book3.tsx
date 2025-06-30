@@ -13,50 +13,6 @@ const FlipBook: React.FC = () => {
   const [pageSize, setPageSize] = useState<PageSize>({ width: 0, height: 0 });
 
   const aspectRatio = 1385 / 1968;
-  const gradients = [
-    <Image
-      key={1}
-      src="/story-book/1.jpg"
-      alt="halaman 1"
-      width={1385}
-      height={1968}
-    />,
-    <Image
-      key={2}
-      src="/story-book/2.jpg"
-      alt="halaman 2"
-      width={1385}
-      height={1968}
-    />,
-    <Image
-      key={3}
-      src="/story-book/3.jpg"
-      alt="halaman 3"
-      width={1385}
-      height={1968}
-    />,
-    <Image
-      key={4}
-      src="/story-book/4.jpg"
-      alt="halaman 4"
-      width={1385}
-      height={1968}
-    />,
-    <Image
-      key={5}
-      src="/story-book/5.jpg"
-      alt="halaman 5"
-      width={1385}
-      height={1968}
-    />,
-    <Image
-      key={6}
-      src="/story-book/6.jpg"
-      alt="halaman 6"
-      width={1385}
-      height={1968}
-    />,
-  ];
 
   useEffect(() => {
     const updateSize = () => {
@@ -75,11 +31,11 @@ const FlipBook: React.FC = () => {
   return (
     <>
       <div className="bg-primary w-full flex items-center justify-center px-4 md:px-24">
-        <div className="bg-accent px-8 py-4 md:px-16 md:py-8 rounded-lg shadow-lg w-full">
+        <div className="bg-accent px-1 py-4 md:px-16 md:py-8 rounded-lg w-full shadow-2xl">
           <div className="flex flex-col justify-center items-start mx-auto px-4 gap-2">
             <div className="mx-auto text-start mb-6">
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-foreground text-center">
-                Story Book <br className="block lg:hidden" />{" "}
+                Buku Cerita Animasi <br className="block lg:hidden" />{" "}
                 <span className="text-primary">Kampung Tugu</span>
               </h2>{" "}
               <p className="text-sm text-primary-foreground/80 mt-1 text-start">
@@ -87,7 +43,7 @@ const FlipBook: React.FC = () => {
               </p>
             </div>
           </div>
-          <div ref={containerRef} className=" mx-auto px-4">
+          <div ref={containerRef} className=" mx-auto px-0 md:px-4">
             {pageSize.width > 0 && (
               <HTMLFlipBook
                 width={pageSize.width}
@@ -96,7 +52,7 @@ const FlipBook: React.FC = () => {
                 startPage={0}
                 drawShadow={true}
                 flippingTime={1000}
-                usePortrait={true}
+                usePortrait={false}
                 startZIndex={0}
                 autoSize={true}
                 clickEventForward={true}
@@ -106,32 +62,44 @@ const FlipBook: React.FC = () => {
                 disableFlipByClick={false}
                 maxShadowOpacity={0.5}
                 size="stretch"
-                minWidth={200}
+                minWidth={150}
                 maxWidth={600}
                 minHeight={300}
                 maxHeight={1900}
-                showCover={false}
+                showCover={true}
                 mobileScrollSupport={true}
                 className="flipbook-container"
               >
                 {/* Contoh halaman */}
-                {gradients.map((gradient, index) => (
+                {Array.from({ length: 24 }).map((_, index) => (
                   <div
                     key={index}
                     className={`w-full h-full flex justify-center items-center text-white text-4xl font-bold`}
                   >
-                    {gradient}
+                    {/* {gradient} */}
+                    <Image
+                      key={index + 1}
+                      src={`/storybook/${index + 1}.webp`}
+                      alt={`Halaman ${index + 1}`}
+                      width={1385}
+                      height={1968}
+                    />
                   </div>
                 ))}
               </HTMLFlipBook>
             )}
           </div>
-          <div className="text-center mt-8 mx-auto max-w-4xl">
+          <div className="text-center mt-8 mx-auto px-4 md:px-0 max-w-4xl">
             <p className="text-lg sm:text-xl text-primary-foreground/90 leading-relaxed">
-              Storybook animation ini mengangkat sejarah dan budaya unik Kampung
-              Tugu, kampung keturunan Portugis di Jakarta Utara. Melalui visual
-              menarik dan narasi ringan, animasi ini memperkenalkan tradisi,
-              musik, serta nilai kebersamaan yang tetap lestari hingga kini.
+              Buku Cerita Animasi Sejarah Kampung Tugu hadir sebagai jendela
+              seru untuk mengenal budaya dan sejarah Kampung Tugu lewat cara
+              yang menyenangkan. Dengan ilustrasi penuh warna dan cerita yang
+              hangat, buku ini mengajak pembaca menyusuri jejak kehidupan
+              masyarakat Tugu dari tradisi, musik keroncong, hingga kisah
+              leluhur yang membentuk identitas kampung ini.
+              <br /> <br />
+              Penasaran seperti apa serunya? Yuk, buka halamannya dan temukan
+              cerita yang mungkin belum pernah kamu dengar sebelumnya!
             </p>
           </div>
         </div>

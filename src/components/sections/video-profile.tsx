@@ -39,17 +39,15 @@ export default function VideoProfileSection() {
               </h2>
               <div className="max-w-4xl mx-auto">
                 <p className="text-lg sm:text-xl text-primary-foreground/90 leading-relaxed">
-                  Video ini memperkenalkan Kampung Tugu sebagai salah satu
-                  kampung bersejarah di Jakarta Utara yang kaya akan warisan
-                  budaya. Melalui tradisi unik seperti Rabo-Rabo dan
-                  Mandi-Mandi, serta musik keroncong khas Tugu, video ini
-                  menggambarkan kekayaan identitas lokal yang masih hidup hingga
-                  kini.
+                  Sebuah persembahan visual yang merekam pesona sejarah Kampung
+                  Tugu dari sudut-sudut yang jarang tersorot. Melalui tradisi
+                  Rabo-Rabo, Mandi-Mandi, alunan Musik Keroncong Tugu, hingga
+                  kisah-kisah sejarah lainnya, video ini menampilkan kekayaan
+                  identitas lokal yang terus terjaga dan lestari hingga kini.
                 </p>
                 <p className="text-lg sm:text-xl text-primary-foreground/90 leading-relaxed mt-4">
-                  Disajikan secara menarik dan informatif, video ini juga
-                  membuka ruang kolaborasi bagi pihak-pihak yang ingin lebih
-                  mengenal atau terlibat dalam pelestarian budaya Kampung Tugu.
+                  Selamat datang di Kampung Tugu, selamat menjelajah dan
+                  merasakan keistimewaannya!
                 </p>
               </div>
             </div>

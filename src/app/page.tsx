@@ -1,6 +1,7 @@
 "use client";
 import Footer from "@/components/footer/footer";
 import Navbar from "@/components/navbar/navbar";
+import ComplaintFormSection from "@/components/sections/complaint-form";
 import HeroSection from "@/components/sections/hero";
 import HistorySection from "@/components/sections/history";
 import NewsSection from "@/components/sections/news";
@@ -31,6 +32,9 @@ export default function HomePage() {
         <NewsSection />
       </div>
       <div id="contact">
+        <ComplaintFormSection />
+      </div>
+      <div id="">
         <Footer />
       </div>
     </div>

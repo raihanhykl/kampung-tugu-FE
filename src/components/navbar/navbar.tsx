@@ -10,10 +10,10 @@ import Image from "next/image";
 const navigationItems = [
   { name: "HOME", href: "#home" },
   { name: "HISTORY", href: "#history" },
-  { name: "VIDEO PROFILE", href: "#video-profile" },
-  { name: "STORYBOOK", href: "#storybook" },
-  { name: "ANIMATION", href: "#animation" },
+  { name: "VIDEO PROFILE", href: "#videoProfile" },
+  { name: "STORYBOOK", href: "#ebook" },
   { name: "SHOP", href: "#shop" },
+  { name: "NEWS", href: "#news" },
   { name: "CONTACT", href: "#contact" },
 ];
 

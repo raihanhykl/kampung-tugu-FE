@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Calendar, Clock, ArrowRight } from "lucide-react";
+import { Calendar, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -76,7 +76,8 @@ export default function NewsSection() {
 
   return (
     <section className="py-16 lg:py-24 bg-primary">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* <section className="py-16 lg:py-24 bg-primary"> */}
+      <div className=" mx-auto p-4 sm:p-6 lg:p-8 w-[90%] bg-accent rounded-2xl shadow-2xl">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="mb-12 flex justify-center">
@@ -109,7 +110,7 @@ export default function NewsSection() {
                 latestNews.map((item) => (
                   <Card
                     key={item.id}
-                    className="overflow-hidden hover:shadow-lg border-none bg-accent transition-shadow duration-300"
+                    className="overflow-hidden hover:shadow-lg border-none bg-white transition-shadow duration-300"
                   >
                     <CardContent className="p-0">
                       <div className="relative">
@@ -128,19 +129,19 @@ export default function NewsSection() {
                       </div>
                       <div className="p-6">
                         <div className="flex items-center gap-4 text-primary-foreground/80 text-sm mb-3">
-                          <div className="flex items-center gap-1">
+                          <div className="flex items-center gap-1 text-muted-foreground">
                             <Calendar className="h-4 w-4" />
                             <span>{formatDate(item.date)}</span>
                           </div>
-                          <div className="flex items-center gap-1">
+                          {/* <div className="flex items-center gap-1">
                             <Clock className="h-4 w-4" />
                             <span>5 min read</span>
-                          </div>
+                          </div> */}
                         </div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-primary-foreground mb-3 line-clamp-2">
+                        <h3 className="text-xl sm:text-2xl font-bold text-black mb-3 line-clamp-2">
                           {item.title}
                         </h3>
-                        <p className="text-primary-foreground leading-relaxed mb-4">
+                        <p className="text-muted-foreground leading-relaxed mb-4">
                           {truncateText(item.description, 150)}
                           {item.description.length > 150 && (
                             <Link
@@ -188,7 +189,7 @@ export default function NewsSection() {
                         href={`/news/${item.slug}`}
                         className=" min-w-[300px]"
                       >
-                        <Card className="overflow-hidden hover:shadow-md bg-accent w-full h-full transition-shadow duration-300 border-none cursor-pointer md:mb-3">
+                        <Card className="overflow-hidden hover:shadow-md bg-white w-full h-full transition-shadow duration-300 border-none cursor-pointer md:mb-3">
                           <CardContent className="p-0">
                             <div className="block md:flex gap-3 p-3">
                               <Image
@@ -199,14 +200,14 @@ export default function NewsSection() {
                                 className="h-full md:h-16 w-full aspect-[16/9] md:w-16 object-cover text-primary-foreground rounded-lg flex-shrink-0"
                               />
                               <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-1 text-primary-foreground/80 text-xs mb-1">
+                                <div className="flex items-center gap-1 text-muted-foreground text-xs mb-1">
                                   <Calendar className="h-3 w-3" />
                                   <span>{formatDate(item.date)}</span>
                                 </div>
-                                <h4 className="font-semibold text-primary-foreground text-sm line-clamp-2 mb-1">
+                                <h4 className="font-semibold text-white text-sm line-clamp-2 mb-1">
                                   {item.title}
                                 </h4>
-                                <p className="text-primary-foreground/90 text-xs line-clamp-2">
+                                <p className="text-muted-foreground text-xs line-clamp-2">
                                   {truncateText(item.description, 80)}
                                 </p>
                               </div>

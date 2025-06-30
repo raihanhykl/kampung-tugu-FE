@@ -31,7 +31,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             alt={product.name}
             width={400}
             height={300}
-            className="w-full h-48 object-cover"
+            className="w-full h-48 md:h-48 object-cover"
           />
           <div className="absolute top-3 right-3">
             <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-medium">
