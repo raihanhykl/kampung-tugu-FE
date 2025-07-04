@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
   // experimental:{
 
   // },
-  output: "export",
+  // output: "export",
   trailingSlash: true,
 };
 
