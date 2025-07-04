@@ -69,9 +69,10 @@ export default function ShopPage() {
 
   useEffect(() => {
     // Simulate loading
-    const timer = setTimeout(() => {
-      setProducts(productData);
-      setFilteredProducts(productData);
+    const timer = setTimeout(async () => {
+      const product = await productData;
+      setProducts(product);
+      setFilteredProducts(product);
       setIsLoading(false);
     }, 1000);
 
@@ -120,7 +121,7 @@ export default function ShopPage() {
       default:
         // Default is featured
         result.sort((a, b) =>
-          a.featured === b.featured ? 0 : a.featured ? -1 : 1
+          a.is_featured === b.is_featured ? 0 : a.is_featured ? -1 : 1
         );
     }
 

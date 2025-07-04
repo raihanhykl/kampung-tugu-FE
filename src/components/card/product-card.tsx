@@ -16,7 +16,10 @@ export function truncateText(text: string, maxLength: number) {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const imageBaseUrl =
+    process.env.NEXT_PUBLIC_GET_IMAGES || "https://sub.kampungtugu.site/api";
   const whatsappLink = `https://wa.me/${
+    // product.price
     product.store.whatsapp
   }?text=Halo, saya tertarik dengan produk ${
     product.name
@@ -27,7 +30,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <CardContent className="p-0">
         <div className="relative">
           <Image
-            src={product.images[0] || "/placeholder.svg"}
+            src={imageBaseUrl + product.images[0].url || "/placeholder.svg"}
             alt={product.name}
             width={400}
             height={300}
@@ -49,7 +52,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             </span>
           </div>
           <p className="text-sm text-foreground/80 mb-2">
-            Toko: <span className="font-medium">{product.store.name}</span>
+            Toko:{" "}
+            <span className="font-medium">{product.store.store_name}</span>
           </p>
           <p className="text-sm text-foreground/70 mb-4 line-clamp-2">
             {truncateText(product.description, 100)}

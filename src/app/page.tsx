@@ -5,6 +5,7 @@ import ComplaintFormSection from "@/components/sections/complaint-form";
 import HeroSection from "@/components/sections/hero";
 import HistorySection from "@/components/sections/history";
 import NewsSection from "@/components/sections/news";
+// import NewsSection from "@/components/sections/news";
 import ShopSection from "@/components/sections/shop";
 import StorybookSection from "@/components/sections/story-book3";
 import VideoProfileSection from "@/components/sections/video-profile";

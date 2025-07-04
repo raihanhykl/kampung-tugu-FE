@@ -43,7 +43,8 @@ function NewsCardSmallSkeleton() {
   );
 }
 
-function formatDate(dateString: string) {
+function formatDate(dateRaw: string) {
+  const dateString = dateRaw?.replace(" ", "T");
   const date = new Date(dateString);
   return date.toLocaleDateString("id-ID", {
     year: "numeric",
@@ -60,6 +61,8 @@ function truncateText(text: string, maxLength: number) {
 export default function NewsSection() {
   const [isLoading, setIsLoading] = useState(true);
   const [news, setNews] = useState<NewsItem[]>([]);
+  const imageBaseUrl =
+    process.env.NEXT_PUBLIC_GET_IMAGES || "https://sub.kampungtugu.site/api";
 
   useEffect(() => {
     // Simulate loading
@@ -71,8 +74,8 @@ export default function NewsSection() {
     return () => clearTimeout(timer);
   }, []);
 
-  const latestNews = news.slice(news.length - 2, news.length);
-  const olderNews = news.slice(0, news.length - 3);
+  const latestNews = news.slice(0, 2);
+  const olderNews = news.slice(2, news.length);
 
   return (
     <section className="py-16 lg:py-24 bg-primary">
@@ -115,7 +118,10 @@ export default function NewsSection() {
                     <CardContent className="p-0">
                       <div className="relative">
                         <Image
-                          src={item.image || "/placeholder.svg"}
+                          src={
+                            imageBaseUrl + item.images[0].url ||
+                            "/placeholder.svg"
+                          }
                           alt={item.title}
                           width={1000}
                           height={800}
@@ -131,7 +137,7 @@ export default function NewsSection() {
                         <div className="flex items-center gap-4 text-primary-foreground/80 text-sm mb-3">
                           <div className="flex items-center gap-1 text-muted-foreground">
                             <Calendar className="h-4 w-4" />
-                            <span>{formatDate(item.date)}</span>
+                            <span>{formatDate(item.updated_at)}</span>
                           </div>
                           {/* <div className="flex items-center gap-1">
                             <Clock className="h-4 w-4" />
@@ -193,7 +199,10 @@ export default function NewsSection() {
                           <CardContent className="p-0">
                             <div className="block md:flex gap-3 p-3">
                               <Image
-                                src={item.image || "/placeholder.svg"}
+                                src={
+                                  imageBaseUrl + item.images[0].url ||
+                                  "/placeholder.svg"
+                                }
                                 alt={item.title}
                                 width={1000}
                                 height={800}
@@ -202,9 +211,9 @@ export default function NewsSection() {
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-1 text-muted-foreground text-xs mb-1">
                                   <Calendar className="h-3 w-3" />
-                                  <span>{formatDate(item.date)}</span>
+                                  <span>{formatDate(item.updated_at)}</span>
                                 </div>
-                                <h4 className="font-semibold text-white text-sm line-clamp-2 mb-1">
+                                <h4 className="font-semibold text-black text-sm line-clamp-2 mb-1">
                                   {item.title}
                                 </h4>
                                 <p className="text-muted-foreground text-xs line-clamp-2">
@@ -216,7 +225,7 @@ export default function NewsSection() {
                         </Card>
                       </Link>
                     ))}
-                    {olderNews.length > 0 && (
+                    {olderNews.length >= 0 && (
                       <div className="text-center py-4 w-full">
                         <p className="text-primary-foreground text-sm w-full">
                           Semua berita telah dimuat

@@ -81,6 +81,7 @@ const FlipBook: React.FC = () => {
                       key={index + 1}
                       src={`/storybook/${index + 1}.webp`}
                       alt={`Halaman ${index + 1}`}
+                      loading="eager"
                       width={1385}
                       height={1968}
                     />
