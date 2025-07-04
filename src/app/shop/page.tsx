@@ -22,13 +22,13 @@ import {
   SheetFooter,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Slider } from "@/components/ui/slider";
+// import { Slider } from "@/components/ui/slider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   productData,
   productCategories,
-  formatPrice,
+  // formatPrice,
 } from "@/lib/product-data";
 import type { Product } from "@/lib/product-data";
 import ProductCard from "@/components/card/product-card";
@@ -60,12 +60,12 @@ export default function ShopPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("featured");
-  const [priceRange, setPriceRange] = useState([0, 500000]);
+  // const [priceRange, setPriceRange] = useState([0, 500000]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   // Find min and max price from products
-  const minPrice = 0;
-  const maxPrice = 500000;
+  // const minPrice = 0;
+  // const maxPrice = 500000;
 
   useEffect(() => {
     // Simulate loading
@@ -92,10 +92,10 @@ export default function ShopPage() {
     }
 
     // Filter by price range
-    result = result.filter(
-      (product) =>
-        product.price >= priceRange[0] && product.price <= priceRange[1]
-    );
+    // result = result.filter(
+    //   (product) =>
+    //     product.price >= priceRange[0] && product.price <= priceRange[1]
+    // );
 
     // Filter by categories
     if (selectedCategories.length > 0) {
@@ -126,7 +126,7 @@ export default function ShopPage() {
     }
 
     setFilteredProducts(result);
-  }, [products, searchQuery, sortOption, priceRange, selectedCategories]);
+  }, [products, searchQuery, sortOption, selectedCategories]);
 
   const handleCategoryChange = (category: string, checked: boolean) => {
     if (checked) {
@@ -139,7 +139,7 @@ export default function ShopPage() {
   const resetFilters = () => {
     setSearchQuery("");
     setSortOption("featured");
-    setPriceRange([minPrice, maxPrice]);
+    // setPriceRange([minPrice, maxPrice]);
     setSelectedCategories([]);
   };
 
@@ -228,7 +228,7 @@ export default function ShopPage() {
                   </SheetHeader>
                   <div className="p-6 space-y-6">
                     {/* Price Range Filter */}
-                    <div className="space-y-4">
+                    {/* <div className="space-y-4">
                       <h3 className="font-medium text-foreground">
                         Rentang Harga
                       </h3>
@@ -250,7 +250,7 @@ export default function ShopPage() {
                           {formatPrice(priceRange[1])}
                         </span>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Category Filter */}
                     <div className="space-y-4">
@@ -293,10 +293,9 @@ export default function ShopPage() {
           </div>
 
           {/* Filter Tags */}
-          {(searchQuery ||
-            selectedCategories.length > 0 ||
-            priceRange[0] > minPrice ||
-            priceRange[1] < maxPrice) && (
+          {(searchQuery || selectedCategories.length > 0) && (
+            // priceRange[0] > minPrice ||
+            // priceRange[1] < maxPrice) && (
             <div className="flex flex-wrap gap-2 mb-6">
               {searchQuery && (
                 <div className="bg-muted text-muted-foreground px-3 py-1 rounded-full text-sm flex items-center">
@@ -308,7 +307,7 @@ export default function ShopPage() {
                 </div>
               )}
 
-              {(priceRange[0] > minPrice || priceRange[1] < maxPrice) && (
+              {/* {(priceRange[0] > minPrice || priceRange[1] < maxPrice) && (
                 <div className="bg-muted text-muted-foreground px-3 py-1 rounded-full text-sm flex items-center">
                   <span className="mr-1">Harga:</span>
                   <span className="font-medium">
@@ -321,7 +320,7 @@ export default function ShopPage() {
                     <X className="h-3 w-3" />
                   </button>
                 </div>
-              )}
+              )} */}
 
               {selectedCategories.map((category) => (
                 <div
