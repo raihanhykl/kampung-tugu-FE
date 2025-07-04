@@ -1,4 +1,6 @@
-import { getAllProducts } from "@/service/get-product";
+// import { getAllProducts } from "@/service/get-product";
+
+export const revalidate = 60;
 import ProductClient from "./ProductClient";
 
 // interface ProductPageProps {
@@ -7,13 +9,14 @@ import ProductClient from "./ProductClient";
 //   };
 // }
 
-export async function generateStaticParams() {
-  const products = await getAllProducts();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return products.data.map((product: any) => ({
-    slug: product.slug,
-  }));
-}
+// export async function generateStaticParams() {
+//   const products = await getAllProducts();
+//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//   return products.data.map((product: any) => ({
+//     slug: product.slug,
+//   }));
+// }
+export const dynamic = "force-dynamic";
 
 export default async function ProductPage({
   params,
