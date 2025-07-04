@@ -21,9 +21,9 @@ export async function generateStaticParams() {
 export default async function NewsDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = params;
+  const { slug } = await params;
 
   return <NewsClient slug={slug} />;
 }
