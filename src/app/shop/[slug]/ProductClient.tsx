@@ -42,7 +42,7 @@ export default function ProductClient({ slug }: { slug: string }) {
     const fetchProduct = async () => {
       const productItem = await getProductBySlug(slug); // asumsi ini async
       if (isMounted) {
-        console.log("ini productnya: " + productItem);
+        // console.log("ini productnya: " + productItem);
         setProduct(productItem || null);
         setIsLoading(false);
       }

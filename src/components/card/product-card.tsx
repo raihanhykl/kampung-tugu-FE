@@ -18,12 +18,30 @@ export function truncateText(text: string, maxLength: number) {
 export default function ProductCard({ product }: ProductCardProps) {
   const imageBaseUrl =
     process.env.NEXT_PUBLIC_GET_IMAGES || "https://sub.kampungtugu.site/api";
-  const whatsappLink = `https://wa.me/${
-    // product.price
-    product.store.whatsapp
-  }?text=Halo, saya tertarik dengan produk ${
+
+  function normalizeWhatsappNumber(raw: string): string {
+    const cleaned = raw.replace(/\D/g, "");
+    if (cleaned.startsWith("0")) {
+      return "62" + cleaned.slice(1);
+    }
+    if (cleaned.startsWith("62")) {
+      return cleaned;
+    }
+    return "";
+  }
+
+  // Pemakaian:
+  const whatsappNumber = normalizeWhatsappNumber(product?.store?.whatsapp);
+
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Halo, saya tertarik dengan produk ${
     product.name
   } seharga ${formatPrice(product.price)}. Apakah masih tersedia?`;
+
+  // const whatsappLink = `https://wa.me/${
+  //   product.store.whatsapp
+  // }?text=Halo, saya tertarik dengan produk ${
+  //   product.name
+  // } seharga ${formatPrice(product.price)}. Apakah masih tersedia?`;
 
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-primary-foreground">
@@ -55,7 +73,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             Toko:{" "}
             <span className="font-medium">{product.store.store_name}</span>
           </p>
-          <p className="text-sm text-foreground/70 mb-4 line-clamp-2">
+          <p className="text-sm text-foreground/70 mb-4 h-10 line-clamp-2">
             {truncateText(product.description, 100)}
             {product.description.length > 100 && (
               <Link
