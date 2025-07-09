@@ -22,9 +22,10 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const product = await getProductBySlug(params.slug);
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     return {
@@ -42,7 +43,7 @@ export async function generateMetadata({
       "kerajinan tangan",
       "produk khas",
     ],
-    url: `https://kampungtugu.site/shop/${params.slug}`,
+    url: `https://kampungtugu.site/shop/${slug}`,
     image:
       product.images?.[0]?.url || "https://kampungtugu.site/images/hero.png",
     lang: "id",

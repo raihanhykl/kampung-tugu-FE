@@ -24,9 +24,10 @@ export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const news = await getNewsBySlug(params.slug);
+  const { slug } = await params;
+  const news = await getNewsBySlug(slug);
 
   if (!news) {
     return {
@@ -44,7 +45,7 @@ export async function generateMetadata({
       "Berita Kampung Tugu",
       "Sejarah Kampung Tugu",
     ],
-    url: `https://kampungtugu.site/news/${params.slug}`,
+    url: `https://kampungtugu.site/news/${slug}`,
     image: news.images?.[0]?.url || "https://kampungtugu.site/images/hero.png",
     lang: "id",
   });
