@@ -1,7 +1,9 @@
 // import { getAllProducts } from "@/service/get-product";
 
 export const revalidate = 60;
+import { getSEOMetadata } from "@/lib/seo";
 import ProductClient from "./ProductClient";
+import { getProductBySlug } from "@/lib/product-data";
 
 // interface ProductPageProps {
 //   params: {
@@ -17,6 +19,35 @@ import ProductClient from "./ProductClient";
 //   }));
 // }
 export const dynamic = "force-dynamic";
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const product = await getProductBySlug(params.slug);
+
+  if (!product) {
+    return {
+      title: "Produk tidak ditemukan - Kampung Tugu",
+    };
+  }
+
+  return getSEOMetadata({
+    title: `Kampung Tugu | ${product.name}`,
+    description: product.description || "Produk unik dari Kampung Tugu.",
+    keywords: [
+      "kampung tugu",
+      "produk desa",
+      product.name,
+      "kerajinan tangan",
+      "produk khas",
+    ],
+    url: `https://kampungtugu.site/shop/${params.slug}`,
+    image:
+      product.images?.[0]?.url || "https://kampungtugu.site/images/hero.png",
+    lang: "id",
+  });
+}
 
 export default async function ProductPage({
   params,

@@ -379,6 +379,12 @@ export function getProductBySlug(slug: string): Product | undefined {
 }
 
 export function getFeaturedProducts(): Product[] {
+  // console.log(
+  //   "ini featured product" +
+  //     JSON.stringify(
+  //       productData?.filter((product) => product.is_featured == true)
+  //     )
+  // );
   return productData?.filter((product) => product.is_featured == true);
 }
 

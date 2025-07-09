@@ -24,6 +24,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 
 export default function ProductClient({ slug }: { slug: string }) {
   const router = useRouter();
@@ -41,6 +42,7 @@ export default function ProductClient({ slug }: { slug: string }) {
     const fetchProduct = async () => {
       const productItem = await getProductBySlug(slug); // asumsi ini async
       if (isMounted) {
+        console.log("ini productnya: " + productItem);
         setProduct(productItem || null);
         setIsLoading(false);
       }
@@ -111,9 +113,21 @@ export default function ProductClient({ slug }: { slug: string }) {
     );
   }
 
-  const whatsappLink = `https://wa.me/${
-    product.store.whatsapp
-  }?text=Halo, saya tertarik dengan produk ${
+  function normalizeWhatsappNumber(raw: string): string {
+    const cleaned = raw.replace(/\D/g, "");
+    if (cleaned.startsWith("0")) {
+      return "62" + cleaned.slice(1);
+    }
+    if (cleaned.startsWith("62")) {
+      return cleaned;
+    }
+    return "";
+  }
+
+  // Pemakaian:
+  const whatsappNumber = normalizeWhatsappNumber(product.store.whatsapp);
+
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Halo, saya tertarik dengan produk ${
     product.name
   } seharga ${formatPrice(product.price)}. Apakah masih tersedia?`;
 
@@ -149,7 +163,7 @@ export default function ProductClient({ slug }: { slug: string }) {
                   <Dialog>
                     <DialogTrigger className="w-full">
                       <div className="p-1">
-                        <div className="overflow-hidden rounded-xl">
+                        <div className="overflow-hidden rounded-xl cursor-pointer">
                           <Image
                             src={imageBaseUrl + image.url || "/placeholder.svg"}
                             alt={`${product.name} - Image ${index + 1}`}
@@ -193,7 +207,10 @@ export default function ProductClient({ slug }: { slug: string }) {
                     alt={`Thumbnail ${index + 1}`}
                     width={80}
                     height={80}
-                    className="w-20 h-20 object-cover rounded-md border border-border cursor-pointer hover:border-primary"
+                    className={cn(
+                      "w-20 h-20 object-cover rounded-md border border-border cursor-pointer hover:border-primary",
+                      selectedIndex === index && "border-primary"
+                    )}
                   />
                 </div>
               ))}

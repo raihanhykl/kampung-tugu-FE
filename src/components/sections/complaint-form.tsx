@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { MessageSquare, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { MessageSquare, Loader2, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -24,25 +24,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ContactFormData, contactFormSchema } from "@/lib/contact-schema";
+import { EmailService } from "@/service/email-service";
 
 // Define form schema with validation
-const formSchema = z.object({
-  name: z.string().min(3, { message: "Nama harus minimal 3 karakter" }),
-  phone: z
-    .string()
-    .min(10, { message: "Nomor telepon harus minimal 10 digit" })
-    .max(15, { message: "Nomor telepon maksimal 15 digit" })
-    .regex(/^[0-9+]+$/, {
-      message: "Nomor telepon hanya boleh berisi angka dan +",
-    }),
-  category: z.string({ required_error: "Silakan pilih kategori pengaduan" }),
-  message: z
-    .string()
-    .min(10, { message: "Pesan pengaduan harus minimal 10 karakter" }),
-});
+// const formSchema = z.object({
+//   name: z.string().min(3, { message: "Nama harus minimal 3 karakter" }),
+//   phone: z
+//     .string()
+//     .min(10, { message: "Nomor telepon harus minimal 10 digit" })
+//     .max(15, { message: "Nomor telepon maksimal 15 digit" })
+//     .regex(/^[0-9+]+$/, {
+//       message: "Nomor telepon hanya boleh berisi angka dan +",
+//     }),
+//   category: z.string({ required_error: "Silakan pilih kategori pengaduan" }),
+//   message: z
+//     .string()
+//     .min(10, { message: "Pesan pengaduan harus minimal 10 karakter" }),
+// });
 
-type FormValues = z.infer<typeof formSchema>;
+// type FormValues = z.infer<typeof formSchema>;
 
 const complaintCategories = [
   "Infrastruktur dan Fasilitas",
@@ -54,39 +55,46 @@ const complaintCategories = [
 
 export default function ComplaintFormSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
 
   // Initialize react-hook-form
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
       phone: "",
       category: "",
       message: "",
     },
+    mode: "onChange",
+    shouldUnregister: false,
   });
 
   // Form submission handler
-  const onSubmit = async (data: FormValues) => {
-    setIsSubmitting(true);
-    setSubmitStatus("idle");
-
+  const onSubmit = async (data: ContactFormData) => {
     try {
-      // Simulate API call with timeout
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // Log the form data (in real app, this would be sent to an API)
-      console.log("Form submitted:", data);
-
-      // Show success message
-      setSubmitStatus("success");
-      form.reset();
+      setIsSubmitting(true);
+      const result = await EmailService.sendContactEmail(data);
+      if (result.success) {
+        form.reset();
+        toast("Pengaduan berhasil dikirim!", {
+          description:
+            "Terima kasih atas pengaduan Anda. Tim kami akan segera memproses pengaduan Anda.",
+          descriptionClassName: "text-black/90",
+          icon: <CheckCircle2 className="text-primary mr-2" />,
+          duration: 4000,
+          position: "top-center",
+          style: {
+            backgroundColor: "white",
+            color: "black",
+            gap: "1rem",
+          },
+        });
+        // setIsSubmitting(false);
+      } else {
+        throw new Error(result.message);
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -121,7 +129,7 @@ export default function ComplaintFormSection() {
           {/* Form Container */}
           <div className="bg-accent rounded-xl shadow-xl p-6 sm:p-8 lg:p-10">
             {/* Status Alerts */}
-            {submitStatus === "success" && (
+            {/* {submitStatus === "success" && (
               <Alert className="mb-6 bg-green-50 text-green-800 border-green-200">
                 <CheckCircle className="h-4 w-4" />
                 <AlertTitle>Berhasil!</AlertTitle>
@@ -130,9 +138,9 @@ export default function ComplaintFormSection() {
                   menindaklanjuti dan menghubungi Anda jika diperlukan.
                 </AlertDescription>
               </Alert>
-            )}
+            )} */}
 
-            {submitStatus === "error" && (
+            {/* {submitStatus === "error" && (
               <Alert className="mb-6 bg-red-50 text-red-800 border-red-200">
                 <AlertCircle className="h-4 w-4" />
                 <AlertTitle>Gagal!</AlertTitle>
@@ -141,7 +149,7 @@ export default function ComplaintFormSection() {
                   lagi atau hubungi kami melalui WhatsApp.
                 </AlertDescription>
               </Alert>
-            )}
+            )} */}
 
             {/* Complaint Form */}
             <Form {...form}>
