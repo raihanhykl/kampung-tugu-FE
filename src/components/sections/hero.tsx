@@ -4,47 +4,62 @@ import { useState, useEffect } from "react";
 import { Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 
 export default function HeroSection() {
   const [visitorCount, setVisitorCount] = useState(0);
 
   useEffect(() => {
-    // Simulate visitor counter - in real app, this would come from analytics API
-    const getVisitorCount = () => {
-      // Get today's date as key
-      const today = new Date().toDateString();
-      const storageKey = `visitors_${today}`;
+    const fetchData = async () => {
+      // Simulate visitor counter - in real app, this would come from analytics API
+      const getVisitorCount = async () => {
+        const today = new Date().toDateString();
+        const storageKey = `visitors_${today}`;
 
-      // Get existing count or start from random base number
-      let count = localStorage.getItem(storageKey);
-      if (!count) {
-        // Start with a realistic base number for a village website
-        count = (Math.floor(Math.random() * 50) + 120).toString(); // 120-170 base visitors
-        localStorage.setItem(storageKey, count.toString());
-      }
+        let count = localStorage.getItem(storageKey);
+        if (!count) {
+          const res = await axios.post(
+            process.env.NEXT_PUBLIC_POST_VISITOR || ""
+          );
+          console.log("ini respon post visitor: ", res);
+          // count = (Math.floor(Math.random() * 50) + 120).toString();
+          if (!res) {
+            count = "0";
+          }
+          count = res.data.data.total_count || "0";
+          localStorage.setItem(storageKey, count!.toString());
+        }
 
-      // Increment by 1 for this visit
-      const newCount = Number.parseInt(count) + 1;
-      localStorage.setItem(storageKey, newCount.toString());
+        const res = await axios.get(process.env.NEXT_PUBLIC_GET_VISITOR || "");
+        console.log("ini respon get visitor: ", res);
+        // const newCount = Number.parseInt(count) + 1;
+        const newCount = res.data.data.total_visitors;
+        localStorage.setItem(storageKey, newCount.toString());
 
-      return newCount;
+        return newCount;
+      };
+
+      // const getVisitorCount1 = () =>{
+      //   const
+      // }
+
+      // Animate counter on load
+      const finalCount = await getVisitorCount();
+      let currentCount = 0;
+      const increment = Math.ceil(finalCount / 50);
+
+      const timer = setInterval(() => {
+        currentCount += increment;
+        if (currentCount >= finalCount) {
+          currentCount = finalCount;
+          clearInterval(timer);
+        }
+        setVisitorCount(currentCount);
+      }, 30);
+
+      return () => clearInterval(timer);
     };
-
-    // Animate counter on load
-    const finalCount = getVisitorCount();
-    let currentCount = 0;
-    const increment = Math.ceil(finalCount / 50);
-
-    const timer = setInterval(() => {
-      currentCount += increment;
-      if (currentCount >= finalCount) {
-        currentCount = finalCount;
-        clearInterval(timer);
-      }
-      setVisitorCount(currentCount);
-    }, 30);
-
-    return () => clearInterval(timer);
+    fetchData();
   }, []);
 
   return (
