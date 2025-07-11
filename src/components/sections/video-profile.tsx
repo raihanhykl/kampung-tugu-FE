@@ -21,7 +21,7 @@ export default function VideoProfileSection() {
               <div className="relative bg-black rounded-2xl overflow-hidden shadow-xl">
                 <div className="aspect-video">
                   <ReactPlayer
-                    url="https://youtu.be/ZnfsPdWMX9E?si=vTDP1s_Sig3k3J2X" // Replace with actual video URL
+                    url="https://youtu.be/7iBVOW_zKPo?si=OfLkvSv5pd-i0Uyy" // Replace with actual video URL
                     width="100%"
                     height="100%"
                     controls={true}

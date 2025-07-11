@@ -2,7 +2,6 @@ import axios from "axios";
 
 export async function getAllProducts() {
   try {
-    // console.log("key", process.env.NEXT_PUBLIC_RAJA_ONGKIR_KEY);
     const response = await axios.get(
       process.env.NEXT_PUBLIC_GET_ALL_PRODUCTS || ""
     );
@@ -23,7 +22,6 @@ export async function getAllProducts() {
 
 export async function getProductBySlug(slug: string) {
   try {
-    // console.log("key", process.env.NEXT_PUBLIC_RAJA_ONGKIR_KEY);
     const response = await axios.get(
       process.env.NEXT_PUBLIC_GET_PRODUCT_BY_SLUG + slug || ""
     );

@@ -17,11 +17,17 @@ export default function NewsClient({ slug }: { slug: string }) {
   const [copied, setCopied] = useState(false);
   const imageBaseUrl =
     process.env.NEXT_PUBLIC_GET_IMAGES || "https://sub.kampungtugu.site/api";
+  const [formattedContent, setFormattedContent] = useState<string | null>(null);
+
+  // const formatted = news?.content.replace(/\r\n/g, "<br />");
 
   useEffect(() => {
     const timer = setTimeout(() => {
       const newsItem = getNewsBySlug(slug);
       setNews(newsItem || null);
+      setFormattedContent(
+        newsItem?.description?.replace(/\r\n/g, "<br />") || null
+      );
       setIsLoading(false);
     }, 1000);
     return () => clearTimeout(timer);
@@ -160,12 +166,16 @@ export default function NewsClient({ slug }: { slug: string }) {
           <Card className="mb-8">
             <CardContent className="p-6 sm:p-8">
               <div className="prose prose-lg max-w-none">
-                <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                {/* <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                   {news.description}
-                </p>
+                </p> */}
                 <div className="text-foreground leading-relaxed whitespace-pre-line">
                   {news.content}
                 </div>
+                <div
+                  className="text-foreground leading-relaxed whitespace-pre-line"
+                  dangerouslySetInnerHTML={{ __html: formattedContent! }}
+                />
               </div>
             </CardContent>
           </Card>

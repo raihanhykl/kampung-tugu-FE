@@ -6,8 +6,22 @@ import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 
+export interface Asset {
+  id: number;
+  image: {
+    id: number;
+    url: string;
+    alt: string;
+  };
+  images: {
+    id: number;
+    url: string;
+    alt: string;
+  }[];
+}
 export default function HeroSection() {
   const [visitorCount, setVisitorCount] = useState(0);
+  const [asset, setAsset] = useState<Asset[]>();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +35,6 @@ export default function HeroSection() {
           const res = await axios.post(
             process.env.NEXT_PUBLIC_POST_VISITOR || ""
           );
-          console.log("ini respon post visitor: ", res);
           // count = (Math.floor(Math.random() * 50) + 120).toString();
           if (!res) {
             count = "0";
@@ -31,7 +44,6 @@ export default function HeroSection() {
         }
 
         const res = await axios.get(process.env.NEXT_PUBLIC_GET_VISITOR || "");
-        console.log("ini respon get visitor: ", res);
         // const newCount = Number.parseInt(count) + 1;
         const newCount = res.data.data.total_visitors;
         localStorage.setItem(storageKey, newCount.toString());
@@ -59,6 +71,13 @@ export default function HeroSection() {
 
       return () => clearInterval(timer);
     };
+
+    const fetchAsset = async () => {
+      const res = await axios.get(process.env.NEXT_PUBLIC_GET_ASSETS || "");
+      setAsset(res.data.data);
+    };
+
+    fetchAsset();
     fetchData();
   }, []);
 
@@ -67,7 +86,11 @@ export default function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero.png"
+          src={
+            "https://sub.kampungtugu.site/api" + asset?.[0]?.image?.url ||
+            "/placeholder.svg"
+          }
+          // src="/images/hero.png"
           alt="Kampung Tugu Heritage Village"
           className="h-full w-full object-cover"
           width={1920}

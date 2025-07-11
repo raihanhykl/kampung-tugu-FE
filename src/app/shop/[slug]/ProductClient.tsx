@@ -40,9 +40,8 @@ export default function ProductClient({ slug }: { slug: string }) {
     let isMounted = true;
 
     const fetchProduct = async () => {
-      const productItem = await getProductBySlug(slug); // asumsi ini async
+      const productItem = await getProductBySlug(slug);
       if (isMounted) {
-        // console.log("ini productnya: " + productItem);
         setProduct(productItem || null);
         setIsLoading(false);
       }
